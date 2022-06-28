@@ -1,0 +1,81 @@
+<!-- <app-file-upload></app-file-upload> -->
+<div class="text-center">
+    <input class="form-control" type="file" (change)="onChange($event)">
+
+    <button (click)="onUpload()" class="btn btn-success">
+        Upload
+    </button>
+</div>
+
+<!-- Shareable short link of  uoloaded file -->
+<div class="container text-center jumbotron"
+    *ngIf="link">
+    <h2> Visit Here</h2>
+    <a href="{{link}}">{{link}}</a>
+</div>
+  
+<!--Flag variable is used here-->
+<div class="container" *ngIf="loading">
+    <h3>Loading ...</h3>
+</div>
+
+<kendo-grid [data]="gridData" id="grid" [resizable]="true">
+    <ng-template kendoGridToolbarTemplate>
+        <button button (click)="onAdd()">Add Student</button>
+    </ng-template>
+    <kendo-grid-column field="Name" title="Name" [width]="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="Email" title="Email" [width]="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="DateOfBirth" title="Date Of Birth" [width]="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="Age" title="Age" [width]="80">
+    </kendo-grid-column>
+    <!-- <kendo-grid-column field="Selected" title="Selected" [width]="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.Selected />
+        </ng-template>
+    </kendo-grid-column> -->
+    <kendo-grid-column field="Action">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <button button (click)="onUpdate(dataItem)">Update</button>
+            <button button (click)="onDelete(dataItem)">Delete</button>
+        </ng-template>
+    </kendo-grid-column>
+
+    
+</kendo-grid>
+
+<form [formGroup]="form" #updateForm="ngForm" (ngSubmit)="onConfirm()" >
+    <div>
+        <label for="name">
+          Name
+        </label>
+        <input id="name" type="text" formControlName="name" [defaultValue]="">
+    </div>
+    <div>
+        <label for="year">
+          Birth Year
+        </label>
+        <input id="year" type="text" formControlName="year">
+    </div>
+    <div>
+        <label for="month">
+          Birth Month
+        </label>
+        <input id="month" type="text" formControlName="month">
+    </div>
+    <div>
+        <label for="day">
+          Birth Day
+        </label>
+        <input id="day" type="text" formControlName="day">
+    </div>
+    <div>
+        <label for="email">
+          Email
+        </label>
+        <input id="email" type="text" formControlName="email">
+    </div>
+    <button class="button" id="" type="submit">Confirm</button>
+</form>
